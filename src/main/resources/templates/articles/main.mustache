@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Gallery</title>
+</head>
+<body>
+<h1>Image Gallery</h1>
+<div class="image-gallery">
+    {{#crawlResult}}
+        <li>
+            <img src="{{image}}" alt="{{name}}" width="40px" height="40px">
+            <p>{{name}}</p>
+        </li>
+    {{/crawlResult}}
+</div>
+</body>
+</html>
