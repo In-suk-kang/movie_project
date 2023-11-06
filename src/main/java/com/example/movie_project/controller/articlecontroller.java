@@ -22,23 +22,22 @@ public class articlecontroller { // 클래스 이름을 변경
     private CrawlingService crawlingService;
     @GetMapping("/")
     public String mainc(Model model) {
-        model.addAttribute("username", "inseok");
-        List<poster> crawlResult = crawlingService.getcrawd("범죄도시"); // CrawlingService의 메서드 호출
+        List<poster> crawlResult = crawlingService.getcrawl(); // CrawlingService의 메서드 호출
         model.addAttribute("crawlResult", crawlResult); // 크롤링 결과를 모델에 추가
-        return "articles/main"; // 크롤링 결과를 표시할 뷰 이름을 반환
+        return "index"; // 크롤링 결과를 표시할 뷰 이름을 반환
     }
-    @GetMapping("/articles/login")
+
+    @GetMapping("/main")
+    public String movie(Model model) {
+        List<poster> crawlResult = crawlingService.getcrawa(); // CrawlingService의 메서드 호출
+        model.addAttribute("crawlResult", crawlResult); // 크롤링 결과를 모델에 추가
+        return "movie"; // 크롤링 결과를 표시할 뷰 이름을 반환
+    }
+
+    @GetMapping("/login")
     public String newArticleForm() {
 
-        return "articles/login";
+        return "login";
     }
 
-    @PostMapping("/member/login")
-    public String createUser(MemberDTO form) {
-        MemberEntity memberEntity = form.toEntity();
-        log.info(memberEntity.toString());
-        //MemberEntity saved = articleRepository.save(memberEntity);
-        //log.info(saved.toString());
-        return "";
-    }
 }

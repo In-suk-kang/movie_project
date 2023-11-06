@@ -24,6 +24,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.jsoup:jsoup:1.16.1'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	implementation files('libs/kobis-opcl-rest-v1.0.jar')
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'	
 }
 
 tasks.named('test') {
