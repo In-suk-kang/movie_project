@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <!-- 헤드 시작 -->
+  <head>
+    <!-- 기본 베이스 -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 모바일 메타 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="user-scalable=no" />
+    <!-- 사이트 메타 -->
+    <title>게시판 목록</title>
+    <meta
+      name="keywords"
+      content="게시판, 페이징"
+    />
+    <meta name="description" content="영화 예매 사이트 프로젝트 입니다." />
+    <meta name="author" content="4조" />
+    <!-- css 리셋 -->
+    <link rel="stylesheet" type="text/css" href="/css/reset.css" />
+    <!-- css 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/boarddetail.css" />
+    <!-- css 스와이퍼 -->
+    <link rel="stylesheet" type="text/css" href="/css/swiper.css" />
+    <!-- css 폰트어썸 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" href="/icons/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="/icons/favicon_72.png" />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="96x96"
+      href="/icons/favicon_96.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="/icons/favicon_144.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="192x192"
+      href="/icons/favicon_192.png"
+    />
+    <!-- css 폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- HTLM5shiv ie6~8 -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script type="text/javascript">
+        alert(
+          '현재 브라우저는 지원하지 않습니다. 엣지 및 크롬 브라우저를 권장합니다.'
+        );
+      </script>
+    <![endif]-->
+  </head>
+  <!-- 헤드 끝 -->
+  <body>
+    <!-- 페이지 헤더 시작 -->
+    <header id="header">
+      <div class="container">
+        <div class="row">
+          <div class="header clearfix">
+            <h1>
+              <a href="/">
+                <em><img src="/img/logo.png" alt="MEGABOX" /></em>
+                <strong
+                  ><img src="/img/logo-sub.png" alt="LIFE THEATER"
+                /></strong>
+              </a>
+            </h1>
+            <nav id="mNav">
+              <h2 class="ir_so">영화사이트 전체메뉴</h2>
+              <a href="#" class="ham"><span></span></a>
+            </nav>
+            <nav class="nav">
+              <ul class="clearfix">
+                <li><a href="/booking">영화예매</a></li>
+                <li><a href="/main">영화검색</a></li>
+                <li><a href="/member/login">로그인</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- 페이지 헤더 끝 -->
+    <!-- 페이징 시작 -->
+    <div class="boarddetail">
+      <div><h1>한줄 영화리뷰</h1></div>
+      <div class="issue_wrap1"></div>
+      <article class="boarddetail_kwh">
+        <div class="boarddetail_wrap">
+          <div class="issue_wrap2"></div>
+          <table class="paging_table">
+            <tr>
+              <th class="paging_id">아이디</th>
+              <th class="paging_title">제목</th>
+              <th class="paging_writer">글쓴이</th>
+              <th class="paging_date">날짜</th>
+              <th class="paging_hits">조회수</th>
+            </tr>
+            <tr class="paging_list" th:each="board: ${boardList}">
+              <td class="paging_id" th:text="${board.id}"></td>
+              <td class="paging_title">
+                <a
+                  th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}"
+                  th:text="${board.boardTitle}"
+                ></a>
+              </td>
+              <td class="paging_writer" th:text="${board.boardWriter}"></td>
+              <td
+                class="paging_date"
+                th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"
+              ></td>
+              <td class="paging_hits" th:text="${board.boardHits}"></td>
+            </tr>
+          </table>
+          <div class="issue_wrap2"></div>
+          <p>
+            <!-- 첫번째 페이지로 이동 -->
+            <!-- /board/paging?page=1 -->
+            <a class="paging_first" th:href="@{/board/paging(page=1)}"
+              >&lt&lt</a
+            >
+
+            <!-- 이전 링크 활성화 비활성화 -->
+            <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+            <a
+              class="paging_prev"
+              th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}"
+              >&lt</a
+            >
+
+            <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+                for(int page=startPage; page<=endPage; page++)-->
+            <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+              <!-- 현재페이지는 링크 없이 숫자만 -->
+              <span
+                th:if="${page == boardList.number + 1}"
+                th:text="${page}"
+              ></span>
+
+              <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+              <span th:unless="${page == boardList.number + 1}">
+                <a
+                  th:href="@{/board/paging(page=${page})}"
+                  th:text="${page}"
+                ></a>
+              </span>
+            </span>
+
+            <!-- 다음 링크 활성화 비활성화
+            사용자: 2페이지, getNumber: 1, 3페이지-->
+            <a
+              class="paging_next"
+              th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}"
+              >&gt</a
+            >
+
+            <!-- 마지막 페이지로 이동 -->
+            <a
+              class="paging_last"
+              th:href="@{/board/paging(page=${boardList.totalPages})}"
+              >&gt&gt</a
+            >
+          </p>
+          <button class="paging_button" onclick="saveReq()">글작성</button>
+        </div>
+      </article>
+    </div>
+    <!-- 페이징 끝 -->
+    <!--푸터 시작-->
+    <footer id="footer">
+      <div id="footer_sns">
+        <div class="container">
+          <div class="footer_sns">
+            <ul>
+              <li class="icon s1">
+                <a href="#"><span class="ir_pm">트위터</span></a>
+              </li>
+              <li class="icon s2">
+                <a href="#"><span class="ir_pm">페이스북</span></a>
+              </li>
+              <li class="icon s3">
+                <a href="#"><span class="ir_pm">인스타그램</span></a>
+              </li>
+              <li class="icon s4">
+                <a href="#"><span class="ir_pm">구글 플레이</span></a>
+              </li>
+              <li class="icon s5">
+                <a href="#"><span class="ir_pm">아이폰 앱스토어</span></a>
+              </li>
+            </ul>
+            <div class="tel">
+              <a href="#">TEL <em>051-890-1114</em></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer_info">
+        <div class="container">
+          <div class="row">
+            <div class="footer_info">
+              <h2><img src="/img/logo_footer.png" alt="megabox" /></h2>
+              <ul>
+                <li><a href="#">대학소개</a></li>
+                <li><a href="#">학과소개</a></li>
+                <li><a href="#">교육과정</a></li>
+                <li><a href="#">실습실</a></li>
+                <li><a href="#">장학 및 취업</a></li>
+                <li><a href="#">고객센터</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+              </ul>
+              <address>
+                <p>
+                  부산광역시 부산진구 가야1동 엄광로 176, 동의대학교<br /><span
+                    class="bar2"
+                    >팀장 배시현</span
+                  >
+                  부팀장 강인석 팀원 정은우 최영재 김우현 최민지 <br /><span
+                    class="bar2"
+                    >강의명 자바프로그래밍</span
+                  >
+                  교수 장시웅
+                </p>
+                <p>4조 영화 예매 웹페이지 프로젝트 입니다</p>
+              </address>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--푸터 끝-->
+  </body>
+  <!-- 자바 스크립트 시작 -->
+  <script>
+    const saveReq = () => {
+      location.href = '/board/save';
+    };
+  </script>
+  <!-- 자바 스크립트 끝 -->
+</html>

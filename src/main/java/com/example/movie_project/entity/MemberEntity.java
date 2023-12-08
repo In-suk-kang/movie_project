@@ -1,27 +1,42 @@
 package com.example.movie_project.entity;
-import lombok.AllArgsConstructor;
-import lombok.ToString;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Date;
+import com.example.movie_project.dto.MemberDTO;
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
-@ToString
+@Setter
+@Getter
+@Table(name = "member")
 public class MemberEntity {
-    @Id //고유 식별자 / 대표 값
-    @GeneratedValue //자동 생성
+    @Id // pk 지정
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
+
+    @Column(unique = true) // unique 제약조건 추가
+    private String memberEmail;
+
     @Column
-    private String userid;
+    private String memberPassword;
+
     @Column
-    private String passwd;
-    @Column
-    private String name;
-    @Column
-    private String email;
-    @Column
-    private Date join_data;
+    private String memberName;
+
+    public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        return memberEntity;
+    }
+
+    public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setId(memberDTO.getId());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        return memberEntity;
+    }
+
 }

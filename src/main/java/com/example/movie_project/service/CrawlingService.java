@@ -19,7 +19,7 @@ public class CrawlingService {
             int count = 1;
             for (Element DT : Data) {
                 if (count >= 5) {
-                    break;
+                    break;  
                 }
                 String movie_img = DT.attr("src");
                 String movie_name = DT.attr("alt");
@@ -59,12 +59,37 @@ public class CrawlingService {
         try {
             Document doc = Jsoup.connect("http://www.cgv.co.kr/movies/?lt=1&ft=1").get();
             Elements Data = doc.select("span.thumb-image img");
+            int rank = 1;
             for (Element DT : Data) {
-
                 String movie_img = DT.attr("src");
                 String movie_name = DT.attr("alt");
-                poster p = new poster(movie_img, movie_name.replace("포스터", ""));
+                poster p = new poster(rank,movie_img, movie_name.replace("포스터", ""));
+                rank++;
+                if(rank > 9)
+                {
+                    break;
+                }
                 list_poster.add(p);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list_poster; // 이미지 소스 리스트를 반환합니다.
+    }
+    public List<poster> getcraw_soon() {
+        List<poster> list_poster = new ArrayList<>();
+        try {
+            Document doc = Jsoup.connect("http://www.cgv.co.kr/movies/pre-movies.aspx").get();
+            Elements Data = doc.select("span.thumb-image img");
+            int count = 1;
+            for (Element DT : Data) {
+                if(count >=5)
+                    break;
+                String movie_img = DT.attr("src");
+                String movie_name = DT.attr("alt");
+                poster p = new poster(count,movie_img, movie_name.replace("포스터", ""));
+                list_poster.add(p);
+                count++;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,5 +97,6 @@ public class CrawlingService {
     
         return list_poster; // 이미지 소스 리스트를 반환합니다.
     }
+    
 }
 

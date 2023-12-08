@@ -1,0 +1,251 @@
+@charset "utf-8";
+
+/* 레이아웃 */
+#mNav {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 14px;
+}
+#header {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #c6c6c6;
+}
+#footer {
+  background: #211f1f;
+}
+
+/* 가운데 영역 */
+.container {
+  position: relative;
+  width: 1280px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0);
+}
+
+/* 로우 영역 */
+.row {
+  padding: 0 28px;
+}
+
+/* 모바일 메뉴 */
+.ham {
+  display: block;
+  width: 25px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 15px 10px 10px 10px;
+}
+.ham span {
+  position: relative;
+  display: block;
+  width: 25px;
+  height: 4px;
+  background: #39106a;
+}
+.ham span:before {
+  content: '';
+  width: 25px;
+  height: 4px;
+  background: #39106a;
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+}
+.ham span:after {
+  content: '';
+  width: 25px;
+  height: 4px;
+  background: #39106a;
+  position: absolute;
+  left: 0;
+  top: -7px;
+}
+
+/* 헤더 영역 */
+.header h1 {
+  float: left;
+}
+.header h1 em {
+  padding: 15px 8px 5px 0;
+  display: inline-block;
+}
+.header h1 img {
+  width: 155px;
+}
+.header h1 strong {
+  display: block;
+  position: absolute;
+  left: 194px;
+  top: 23px;
+}
+.header h1 strong img {
+  width: 126px;
+}
+.header .nav {
+  float: right;
+}
+.header .nav ul {
+  border-left: 1px solid #c6c6c6;
+}
+.header .nav ul li {
+  float: left;
+  width: 103px;
+  text-align: center;
+  border-right: 1px solid #c6c6c6;
+}
+.header .nav ul li a {
+  display: block;
+  padding: 19px 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #444;
+}
+
+/* 로그인 성공 */
+.loginMain {
+  padding: 250px 0;
+}
+.loginMain h2 {
+  padding: 0 0 10px;
+  margin: auto;
+  width: 400px;
+  font-size: 32px;
+  color: black;
+  border-bottom: 2px solid #000;
+  text-align: center;
+}
+.loginMain ul {
+  list-style: none;
+  overflow: hidden;
+  width: 848px;
+  margin: 0 auto;
+}
+.loginMain ul li {
+  float: left;
+  margin-right: 20px;
+}
+.loginMain .info ul {
+  padding-top: 10px;
+  margin: auto;
+  width: 271px;
+}
+.loginMain .info ul li a {
+  text-align: center;
+  font-size: 17px;
+  color: black;
+}
+.kakaoLogo {
+  width: 6%;
+}
+.kakaoProfile {
+  width: 400px;
+  padding: 0 0 10px;
+  margin: 10px auto 0;
+  text-align: center;
+  position: relative;
+  border-bottom: 2px solid #000;
+}
+.kakaoSpan {
+  position: relative;
+  left: -1%;
+}
+.kakaoText {
+  font-size: 17px;
+  font-weight: bold;
+}
+/* 페이지 하단 */
+.footer_sns {
+  position: absolute;
+  right: 17px;
+  top: 33px;
+  z-index: 1;
+}
+.footer_sns li {
+  display: inline-block;
+  margin: 0 2px;
+}
+.footer_sns li a {
+  display: block;
+  width: 36px;
+  height: 36px;
+}
+.footer_sns li.s1 {
+  background-position: 0 -375px;
+}
+.footer_sns li.s2 {
+  background-position: -36px -375px;
+}
+.footer_sns li.s3 {
+  background-position: -72px -375px;
+}
+.footer_sns li.s4 {
+  background-position: -108px -375px;
+}
+.footer_sns li.s5 {
+  background-position: -144px -375px;
+}
+.footer_sns li.s1:hover {
+  background-position: 0 -411px;
+}
+.footer_sns li.s2:hover {
+  background-position: -36px -411px;
+}
+.footer_sns li.s3:hover {
+  background-position: -72px -411px;
+}
+.footer_sns li.s4:hover {
+  background-position: -108px -411px;
+}
+.footer_sns li.s5:hover {
+  background-position: -144px -411px;
+}
+.footer_sns .tel {
+  text-align: right;
+  padding-top: 5px;
+}
+.footer_sns .tel a {
+  color: #8f8f8f;
+  font-size: 21px;
+}
+.footer_sns .tel a em {
+  color: #fff;
+}
+
+.footer_info {
+  padding: 20px 0;
+  width: 80%;
+}
+.footer_info h2 img {
+  width: 150px;
+}
+.footer_info ul {
+  padding: 15px 0;
+}
+.footer_info li {
+  position: relative;
+  display: inline;
+  padding-right: 16px;
+  white-space: nowrap;
+}
+.footer_info li:after {
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 1px;
+  height: 11px;
+  background: #8f8f8f;
+}
+.footer_info li:last-child::after {
+  width: 0;
+  height: 0;
+}
+.footer_info li a {
+  color: #8f8f8f;
+}
+.footer_info address p {
+  color: #8f8f8f;
+  padding-bottom: 15px;
+}

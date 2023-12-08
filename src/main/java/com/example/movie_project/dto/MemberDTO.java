@@ -1,19 +1,24 @@
 package com.example.movie_project.dto;
 import com.example.movie_project.entity.MemberEntity;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
-import java.util.Date;
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class MemberDTO {
+    private Long id;
+    private String memberEmail;
+    private String memberPassword;
+    private String memberName;
 
-    private String userid;
-    private String passwd;
-    private String name;
-    private String email;
-    private Date join_data;
-    public MemberEntity toEntity()
-    {
-        return new MemberEntity(null,userid,passwd,name,email,join_data);
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberPassword());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        return memberDTO;
     }
 }
-

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 기본 베이스 -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 모바일 메타 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="user-scalable=no" />
+    <!-- 사이트 메타 -->
+    <title>좌석 예매</title>
+    <meta
+      name="keywords"
+      content="영화, 최신영화, 영화관, CGV, 롯데시네마, 예매하기, 자바프로젝트"
+    />
+    <meta name="description" content="영화 예매 사이트 프로젝트 입니다." />
+    <meta name="author" content="4조" />
+    <!-- css 리셋 -->
+    <link rel="stylesheet" type="text/css" href="/css/reset.css" />
+    <!-- css 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <!-- css 스와이퍼 -->
+    <link rel="stylesheet" type="text/css" href="/css/swiper.css" />
+    <!-- css 폰트어썸 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="/css/booking.css" />
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" href="/icons/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="/icons/favicon_72.png" />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="96x96"
+      href="/icons/favicon_96.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="/icons/favicon_144.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="192x192"
+      href="/icons/favicon_192.png"
+    />
+    <!-- css 폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- HTLM5shiv ie6~8 -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script type="text/javascript">
+        alert(
+          '현재 브라우저는 지원하지 않습니다. 엣지 및 크롬 브라우저를 권장합니다.'
+        );
+      </script>
+    <![endif]-->
+    <!-- jquery cdn -->
+</head>
+<body>
+      <!-- 페이지 헤더 시작 -->
+    <header id="header">
+      <div class="container1">
+        <div class="row1">
+          <div class="header clearfix">
+            <h1>
+              <a href="/">
+                <em><img src="/img/logo.png" alt="MEGABOX" /></em>
+                <strong
+                  ><img src="/img/logo-sub.png" alt="LIFE THEATER"
+                /></strong>
+              </a>
+            </h1>
+            <nav id="mNav">
+              <h2 class="ir_so">영화사이트 전체메뉴</h2>
+              <a href="#" class="ham"><span></span></a>
+            </nav>
+            <nav class="nav">
+              <ul class="clearfix">
+                <li><a href="/board/paging">게시판</a></li>
+                <li><a href="/booking">영화예매</a></li>
+                <li><a href="/main">영화검색</a></li>
+                <li><a href="/member/login">로그인</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- 페이지 헤더 끝 --> 
+    <script type="text/javascript">
+        var buttons = document.querySelectorAll('.menu');
+        for(var button of buttons){
+            button.onmouseover = function(){
+                this.style.backgroundColor="aqua";
+                this.style.fontSize = "20px";
+                this.style.fontWeight = 'bolder';
+                this.style.width = '50%';
+            }
+            button.onmouseout = function(){
+                this.style.backgroundColor="coral";
+                this.style.fontSize = "15px";
+                this.style.fontWeight = 'normal';
+                this.style.width = '20%';
+            }
+        }
+     
+    </script>
+
+<div class="search_boxes"style="text-align: center;">
+  <div class="search_box"style="text-align: center;">
+    <form method="post" action="/booking">
+      <span class="movie-option">
+      <label for="movies">영화 </label>
+      <select name="selectedMovie" id="movies">
+          <option th:each="movie : ${movies}" th:value="${movie}" th:text="${movie}"></option>
+      </select>
+      <p th:text="${code}"></p>
+    </span>
+      <!--아래는 뭔지 모르지만 불필요한 줄 바꿈 + 스크립트라 주석처리-->
+      <!--<p th:text="${code}"></p>-->
+      <span class="movie-option">
+      <label for="Region">지역 </label>
+      <select name="selectRegion" id="Region">
+          <option th:each="currentRegion : ${region}" th:value="${currentRegion.regionName}" th:text="${currentRegion.regionName}"></option>
+      </select>
+    </span>
+    <span class="movie-option">
+      <label for="Theater">영화관 </label>
+      <select name="selectTheater" id="Theater">
+          <option th:each="currentTheater : ${theater}" th:value="${currentTheater.theaterName}" th:text="${currentTheater.theaterName}"></option>
+      </select>
+    </span>
+      
+  
+  <label for="movie">날짜  </label>
+  <span>
+    <input type="date"
+      name="selectDay"
+     id="date"
+     max="2023-12-27"
+     min="2023-11-21"
+     th:value="${now}">
+</span>
+</label>
+<span>
+<select size="3" name="selectTime">
+    <option  selected>11:00</option>
+    <option >16:00</option>
+    <option >16:30</option>
+    <option>17:00</option>
+    <option >17:30</option>
+    <option>18:00</option>
+    <option >18:30</option>
+    <option >19:00</option>
+    <option >19:30</option>
+    <option >20:00</option>
+    <option >20:30</option>
+</select>
+</span>
+<span class="movie-container" style="text-align: center;">
+<label for="movie">요금제  </label>
+<select id="movie">
+  <option value="12000">성인 요금</option>
+  <option value="10000">청소년요금</option>
+  <option value="8000">어린이요금</option>
+</select>
+</span>
+    <!-- <select name=""id=""onchange="categoryChange(this)">
+      <option value>시/도 선택</option>
+      <option value="general05">광주</option>
+      <option value="general09">서울</option>
+      <option value="general10">울산</option>
+    </select> -->
+  </div>
+  
+  <!-- <div class="search_box">
+    <select name=""id="state">
+      <option>군/구 선택</option>
+    </select>
+  </div> -->
+
+  <!--밑은 영화 예매 좌석 표시-->
+    <div
+    address="/member/booking"
+  >
+
+    <ul class="showcase">
+      <li>
+        <div class="seat"></div>
+        <small>빈자리</small>
+      </li>
+      <li>
+        <div class="seat selected"></div>
+        <small>선택한자리</small>
+      </li>
+      <li>
+        <div class="seat occupied"></div>
+        <small>선택불가</small>
+      </li>
+    </ul>
+
+    <div class="container">
+      <div class="screen"></div>
+      <div class="screen_text">↑스크린↑</div>
+      <div class="screen_seats">
+        <span class="seat_a">A</span>
+        <span class="seat_b">B</span>
+        <span class="seat_c">C</span>
+        <span class="seat_d">D</span>
+        <span class="seat_e">E</span>
+        <span class="seat_f">F</span>
+        <span class="seat_g">G</span>
+        <span class="seat_h">H</span>
+        <span class="seat_i">I</span>
+        <span class="seat_j">J</span>
+        <span class="seat_k">K</span>
+        <span class="seat_l">L</span>
+        <span class="seat_m">M</span>
+        <span class="seat_n">N</span>
+        <span class="seat_o">O</span>
+        <span class="seat_p">P</span>
+        <span class="seat_q">Q</span>
+        <span class="seat_r">R</span>
+        <span class="seat_s">S</span>
+        <span class="seat_t">T</span>
+        <span class="seat_u">U</span>
+        <span class="seat_v">V</span>
+        <span class="seat_w">W</span>
+        <span class="seat_x">X</span>
+        <span class="seat_y">Y</span>
+        <span class="seat_z">Z</span>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+      <div class="row">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+      </div>
+    </div>
+    <br></br>
+    <span class="text">
+      고객님은 <span id="count">0</span> 좌석을 선택하셨고 가격은 <span id="total">0</span>원 입니다
+    </span>
+  </br></br></br>
+    <input type="hidden" name="selectedSeatsCount" id="selectedSeatsCount" value="0">
+    <input type="hidden" name="totalAmount" id="totalAmount" value="0">
+    <button type="submit" onclick="updateSelectedCount()">예매하기</button>
+</form>
+    <!--저장 알림 뜨는거 삭제-->
+    <!--<button onclick='alert("저장")'>저장</button>-->
+<script src="js/1.js"></script>
+<script src="js/2.js"></script>
+<script src="js/3.js"></script>
+</div>
+</div>
+</form>
+    <!--푸터 시작-->
+    <footer id="footer">
+      <div id="footer_sns">
+        <div class="container1">
+          <div class="footer_sns">
+            <ul>
+              <li class="icon s1">
+                <a href="#"><span class="ir_pm">트위터</span></a>
+              </li>
+              <li class="icon s2">
+                <a href="#"><span class="ir_pm">페이스북</span></a>
+              </li>
+              <li class="icon s3">
+                <a href="#"><span class="ir_pm">인스타그램</span></a>
+              </li>
+              <li class="icon s4">
+                <a href="#"><span class="ir_pm">구글 플레이</span></a>
+              </li>
+              <li class="icon s5">
+                <a href="#"><span class="ir_pm">아이폰 앱스토어</span></a>
+              </li>
+            </ul>
+            <div class="tel">
+              <a href="#">TEL <em>051-890-1114</em></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer_info">
+        <div class="container1">
+          <div class="row1">
+            <div class="footer_info">
+              <h2><img src="/img/logo_footer.png" alt="megabox" /></h2>
+              <ul>
+                <li><a href="#">대학소개</a></li>
+                <li><a href="#">학과소개</a></li>
+                <li><a href="#">교육과정</a></li>
+                <li><a href="#">실습실</a></li>
+                <li><a href="#">장학 및 취업</a></li>
+                <li><a href="#">고객센터</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+              </ul>
+              <address>
+                <p>
+                  부산광역시 부산진구 가야1동 엄광로 176, 동의대학교<br /><span
+                    class="bar2"
+                    >팀장 배시현</span
+                  >
+                  부팀장 강인석 팀원 정은우 최영재 김우현 최민지 <br /><span
+                    class="bar2"
+                    >강의명 자바프로그래밍</span
+                  >
+                  교수 장시웅
+                </p>
+                <p>4조 영화 예매 웹페이지 프로젝트 입니다</p>
+              </address>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--푸터 끝-->
+</body>
+</html>
